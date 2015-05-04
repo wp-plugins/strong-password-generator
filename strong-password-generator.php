@@ -2,7 +2,7 @@
 /**
  * Plugin Name: Strong Password Generator
  * Description: Encourage the use of strong passwords by helping users generate them easily.
- * Version: 0.1.0
+ * Version: 0.2.0
  * Author: Frankie Jarrett
  * Author URI: http://frankiejarrett.com
  * License: GPLv3
@@ -16,7 +16,7 @@ class Strong_Password_Generator {
 	 *
 	 * @const string
 	 */
-	const VERSION = '0.1.0';
+	const VERSION = '0.2.0';
 
 	/**
 	 * Hold plugin instance
@@ -102,7 +102,21 @@ class Strong_Password_Generator {
 		 *
 		 * @return int
 		 */
-		$length = apply_filters( 'spg_password_length', 20 );
+		$length = apply_filters( 'spg_default_password_length', 20 );
+
+		/**
+		 * Filter the minimum password length allowed
+		 *
+		 * @return int
+		 */
+		$min = apply_filters( 'spg_min_password_length', 7 );
+
+		/**
+		 * Filter the maximum password length allowed
+		 *
+		 * @return int
+		 */
+		$max = apply_filters( 'spg_max_password_length', 32 );
 
 		/**
 		 * Filter whether or not to allow memorable passwords (true = decreased entropy)
@@ -116,10 +130,12 @@ class Strong_Password_Generator {
 			'spg_button',
 			array(
 				'length'    => absint( $length ),
+				'min'       => absint( $min ),
+				'max'       => absint( $max ),
 				'memorable' => (bool) $memorable,
 				'i18n'      => array(
-					'button' => esc_html__( 'Generate Strong Password', 'strong-password-generator' ),
-					'alert'  => esc_html__( 'Please save this password in a safe place:', 'strong-password-generator' ),
+					'button' => esc_html__( 'Password Generator', 'strong-password-generator' ),
+					'range'  => esc_html__( 'Length', 'strong-password-generator' ),
 				),
 			)
 		);
