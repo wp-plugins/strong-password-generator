@@ -1,12 +1,11 @@
-/* globals generatePassword, spg_button */
+/* globals generatePassword */
 
 jQuery( document ).ready( function( $ ) {
-	var spg_length     = parseInt( spg_button.length, 10 ),
-	    spg_min_length = parseInt( spg_button.min, 10 ),
-	    spg_max_length = parseInt( spg_button.max, 10 ),
-	    spg_html       = '<div class="spg-container"><p><a href="#" id="spg-button" class="button button-secondary button-large"><span class="dashicons dashicons-admin-network"></span> ' + spg_button.i18n.button + '</a></p><div id="spg-controls"><p>' + spg_button.i18n.range + ' <input type="range" name="spg-length" id="spg-length" min="' + spg_min_length + '" max="' + spg_max_length + '" value="' + spg_length + '"><span id="spg-display-length">' + spg_length + '</span></p><p><code id="spg-display-pass"></code></p></div></div>';
+	var spg_length    = parseInt( $( '#spg-default-length' ).val(), 10 ),
+	    spg_memorable = parseInt( $( '#spg-memorable' ).val(), 10 ),
+	    $spg_html     = $( '.spg-container' );
 
-	$( '#pass-strength-result' ).before( spg_html );
+	$( '#pass-strength-result' ).before( $spg_html );
 
 	$( document ).on( 'click', '#spg-button', function( e ) {
 		e.preventDefault();
@@ -27,7 +26,7 @@ jQuery( document ).ready( function( $ ) {
 
 	$( document ).on( 'focus', 'input#pass1, input#pass2', function() {
 		$( 'input#pass1' ).val( '' );
-		$( 'input#pass2' ).val( '' );
+		$( 'input#pass2' ).val( '' ).trigger( 'input' );
 		$( '#spg-button' ).removeClass( 'active' );
 		$( '#spg-controls' ).slideUp( 'fast', function() {
 			$( '#spg-length' ).val( spg_length );
@@ -37,7 +36,7 @@ jQuery( document ).ready( function( $ ) {
 
 	function spgGeneratePassword() {
 		var length = parseInt( $( '#spg-length' ).val(), 10 ),
-		    pass   = generatePassword( length, ( '' !== spg_button.memorable ) );
+		    pass   = generatePassword( length, ( 1 === spg_memorable ) );
 
 		$( '#spg-display-pass' ).text( pass );
 		$( 'input#pass1' ).val( pass );
