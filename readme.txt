@@ -3,7 +3,7 @@ Contributors:      fjarrett
 Tags:              admin, login, membership, passwords, profile, security, users
 Requires at least: 3.7
 Tested up to:      4.2
-Stable tag:        0.2.0
+Stable tag:        0.3.0
 License:           GPLv3
 License URI:       https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -67,9 +67,17 @@ add_filter( 'spg_allow_memorable_passwords', '__return_true' );
 
 == Changelog ==
 
+= 0.3.0 - May 5, 2015 =
+
+* Fix: JS bug preventing manual passwords from being set
+* Tweak: Use hooks to insert generator markup instead of JS
+* Tweak: Improved CSS styling in various views
+
+Props [@fjarrett](https://github.com/fjarrett)
+
 = 0.2.0 - May 4, 2015 =
 
-* Add slider for custom password length control, retire alert window
+* New: Add slider for custom password length control, retire alert window
 
 Props [@fjarrett](https://github.com/fjarrett)
 
